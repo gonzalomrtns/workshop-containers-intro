@@ -8,5 +8,5 @@ services:
     volumes:
     - ./shared:/shared
     command: --check-caps false --ISCAgent false
-    #environment:
-    #- ISC_DATA_DIRECTORY=/shared/durable
+    environment:
+    - ISC_DATA_DIRECTORY=/shared/durable
