@@ -82,6 +82,9 @@ Usage:  docker container rm [OPTIONS] CONTAINER [CONTAINER...]
 
 Remove one or more containers
 
+Aliases:
+  docker container rm, docker container remove, docker rm
+
 Options:
   -f, --force     Force the removal of a running container (uses SIGKILL)
   -l, --link      Remove the specified link
@@ -99,20 +102,31 @@ ac47
 
 ```
 docker container ls --help
-
 Usage:  docker container ls [OPTIONS]
 
 List containers
 
 Aliases:
-  ls, ps, list
+  docker container ls, docker container list, docker container ps, docker ps
 
 Options:
   -a, --all             Show all containers (default shows just running)
   -f, --filter filter   Filter output based on conditions provided
-      --format string   Pretty-print containers using a Go template
-  -n, --last int        Show n last created containers (includes all states) (default -1)
-  -l, --latest          Show the latest created container (includes all states)
+      --format string   Format output using a custom template:
+                        'table':            Print output in table format
+                        with column headers (default)
+                        'table TEMPLATE':   Print output in table format
+                        using the given Go template
+                        'json':             Print in JSON format
+                        'TEMPLATE':         Print output using the given
+                        Go template.
+                        Refer to https://docs.docker.com/go/formatting/
+                        for more information about formatting output with
+                        templates
+  -n, --last int        Show n last created containers (includes all
+                        states) (default -1)
+  -l, --latest          Show the latest created container (includes all
+                        states)
       --no-trunc        Don't truncate output
   -q, --quiet           Only display container IDs
   -s, --size            Display total file sizes
@@ -323,15 +337,15 @@ docker rm $(docker ps -aq)
 
 ```
 docker run -d --name myservice -p 8080:8080 service:v1
-1cca730b6f8588a6f213d04a549cf395eefa9ccfda4c2d13039b7c61739b8310
+fcc26b34927a2b84c0fb454addb5a54c1a84efb813f8e245b3ff8a2606bcb2ba
 ```
 
 * (g.2) Run docker ps again to see that your new container is running
 
 ```
 docker ps
-CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                       NAMES
-1cca730b6f85   service:v1   "docker-entrypoint.s…"   16 seconds ago   Up 14 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   myservice
+CONTAINER ID   IMAGE        COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+fcc26b34927a   service:v1   "docker-entrypoint.s…"   19 seconds ago   Up 19 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   myservice
 ```
 
 * (g.3) By running the curl command below, you can verify that this container is, indeed, running the application that you created in your server.js file (you can use also your regular web browser)
@@ -721,7 +735,7 @@ services:
     - ./shared:/shared
     - ./config:/config
 
-    #command: --check-caps false --ISCAgent false
+    #command: --check-caps false
     environment:
     #- ISC_DATA_DIRECTORY=/shared/durable
     - ISC_CPF_MERGE_FILE=/config/merge.cpf
