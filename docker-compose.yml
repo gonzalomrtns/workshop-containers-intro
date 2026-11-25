@@ -9,7 +9,8 @@ services:
     - ./shared:/shared
     #- ./config:/config
 
-    #command: --check-caps false --ISCAgent false
+    #command: --check-caps false 
     #environment:
     #- ISC_DATA_DIRECTORY=/shared/durable
     #- ISC_CPF_MERGE_FILE=/config/merge.cpf
+
